@@ -1,6 +1,6 @@
 const audioContext = new AudioContext();
 const analyser = audioContext.createAnalyser();
-analyser.fftSize = 1024; // Adjust for different levels of detail
+analyser.fftSize = 1024;
 
 const canvas = document.getElementById("visualizer") as HTMLCanvasElement;
 const ctx = canvas.getContext("2d")!;
@@ -12,10 +12,10 @@ const source = audioContext.createMediaElementSource(audioElement);
 source.connect(analyser);
 analyser.connect(audioContext.destination);
 
-let mode = 0; // 0 = waveform, 1 = frequency bars, 2 = oscilloscope-like
+let mode = 0;
 
 document.getElementById("toggleMode")?.addEventListener("click", () => {
-    mode = (mode + 1) % 3; // Cycle through modes
+    mode = (mode + 1) % 3;
 });
 
 function draw() {
@@ -90,7 +90,6 @@ function drawOscilloscope() {
     ctx.stroke();
 }
 
-// Start visualization when audio plays
 audioElement.addEventListener("play", () => {
     if (audioContext.state === "suspended") audioContext.resume();
     draw();
